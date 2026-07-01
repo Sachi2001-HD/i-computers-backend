@@ -1,6 +1,5 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import studentRouter from './routers/studentRouter.js';
 import userRouter from './routers/userRouter.js';
 import productRouter from './routers/productRouter.js';
 import authenticate from './middlewares/authenticate.js';
@@ -18,37 +17,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/users", userRouter);
-app.use("/students", studentRouter);
 app.use("/products", authenticate, productRouter);
-
-app.get(
-    "/",
-    (req,res) => {
-        //retrieve all students from database
-        Student.find().then(
-            (students) => {
-                res.json(students);
-            }
-        )
-    }
-)
-
-app.post(
-    "/",
-    (req,res) => {
-
-        //database -> student collection -> add data
-        const newStudent = new Student(req.body);
-        newStudent.save().then(
-            () => {
-                res.json({
-                    message:"Student Added Successfully"
-                }
-                )
-            }
-        )
-    }
-)
 
 
 app.listen(
