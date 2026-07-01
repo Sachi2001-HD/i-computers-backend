@@ -3,8 +3,12 @@ import mongoose from 'mongoose';
 import userRouter from './routers/userRouter.js';
 import productRouter from './routers/productRouter.js';
 import authenticate from './middlewares/authenticate.js';
+import dotenv from 'dotenv';
 
-const mongoDBURI = "mongodb://admin:1234@ac-3aazm2e-shard-00-00.j3ftgiz.mongodb.net:27017,ac-3aazm2e-shard-00-01.j3ftgiz.mongodb.net:27017,ac-3aazm2e-shard-00-02.j3ftgiz.mongodb.net:27017/i-computers?ssl=true&replicaSet=atlas-6w1m4s-shard-0&authSource=admin&appName=Cluster0"
+dotenv.config();
+
+const mongoDBURI = process.env.MONGO_URI;
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 mongoose.connect(mongoDBURI).then(
     () => {
